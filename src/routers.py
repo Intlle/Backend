@@ -9,19 +9,22 @@ from sqlalchemy import select, delete, update
 
 router = APIRouter()
 
+@router.get("/")
+async def default() -> Response:
+    return Response(status_code=418, content='Nothing to do at the root.')
 
 @router.post("/create")
 async def create_user(nodes: Nodes, session: AsyncSession = Depends(get_session)) -> Response:
     'Создает пользователя'
+    id = str(uuid.uuid4())
     try:
-        user = User(id=str(uuid.uuid4()), nodes=nodes.nodes)
+        user = User(id=id, nodes=nodes.nodes)
         session.add(user)
         await session.commit()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-    return Response(status_code=201, content="User created")
-
+    return Response(status_code=201, content=id, media_type="text/plain")
 
 @router.get("/get/{node_id}")
 async def get_by_id(node_id: str, session: AsyncSession = Depends(get_session)) -> Nodes:
@@ -54,7 +57,6 @@ async def get_all(session: AsyncSession = Depends(get_session)) -> list[UserSche
 
     return [UserSchema(id=user.id, nodes=user.nodes) for user in res]
 
-
 @router.put("/update/{node_id}")
 async def update_by_id(node_id: str, nodes: Nodes, session: AsyncSession = Depends(get_session)) -> Response:
     'Обновляет пользователя по id'
@@ -69,7 +71,6 @@ async def update_by_id(node_id: str, nodes: Nodes, session: AsyncSession = Depen
         raise HTTPException(status_code=404, detail="Node not found")
 
     return Response(status_code=200, content="User updated")
-
 
 @router.delete("/delete/{node_id}")
 async def delete_by_id(node_id: str, session: AsyncSession = Depends(get_session)) -> Response:
