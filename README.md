@@ -49,5 +49,5 @@ Intlle Backend
 Для запуска проекта необходимо открыть папку проекта и в терминале написать команду:
 
 ```bash
-unicorn src.main:app --reload
+uvicorn src.main:app --reload
 ```
