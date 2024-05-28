@@ -1,6 +1,6 @@
 ![intlle_docs](https://github.com/Intlle/Backend/assets/146841763/38772e5d-8c51-41f0-81cd-b3c1b0a3afe0)
 ## Intlle Backend Documentation
-[![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/Intlle/Backend/blob/docs-update/README.ru.md)
+[![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/Intlle/Backend/blob/main/README.ru.md)
 ### File structure
 ```
 Backend
