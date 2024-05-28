@@ -1,8 +1,9 @@
-# Backend
-Проект имеет следующую структуру файлов:
-
+![intlle_docs](https://github.com/Intlle/Backend/assets/146841763/38772e5d-8c51-41f0-81cd-b3c1b0a3afe0)
+## Intlle Backend Documentation
+[![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/Intlle/Backend/blob/docs-update/README.ru.md)
+### File structure
 ```
-Intlle Backend
+Backend
 ├── README.md
 ├── requirements.txt
 └── src
@@ -13,41 +14,44 @@ Intlle Backend
     ├── models.py
     ├── routers.py
     └── schemas.py
-
 ```
 
-## Структура файлов
+- `src/main.py` - program's entry point, makes a fastAPI application instance and sets up all the routes and requests handlers. 
 
-- `src/main.py`: Этот файл является точкой входа в приложение. Он создает экземпляр приложения FastAPI и настраивает маршруты и обработчики запросов.
+- `src/config.py` - project's configuration variables.
 
-- `src/config.py`: Этот файл содержит переменные конфига проекта.
+- `src/db.py` - contains database engine and a function to create database sessions.
 
-- `src/db.py`: Этот файл содержит движок и функцию для созания сессий базы данных.
+- `src/migrations.py` - database creation code.
 
-- `src/migrations.py`: Этот файл содержит код для создания базы данных.
+- `src/models.py` - database' models code.
 
-- `src/models.py`: Этот файл содержит модельки для таблиц базы данных.
+- `src/routers.py` - contains all of the application's CRUD routers.
 
-- `src/routers.py`: Этот файл содержит CRUD роутеры для проекта.
+- `src/schemas.py` - contains Pydantic schemes.
 
-- `src/schemas.py`: Этот файл содержит схемы Pydantic.
+- `requirements.txt` - a list of project's dependencies.
 
-- `requirements.txt`: Этот файл содержит список зависимостей Python, необходимых для запуска приложения.
+- `README.md` - project's documentation file.
 
-- `README.md`: Этот файл содержит документацию по проекту.
+### Application routes
+- `/create` - creates new entry in the main database (data for the entry is passed in request's body as ```{'nodes' : 'string'}```; returns entry's assigned UUID in response)
 
+- `/update/{node_id}` - updates database entry by its UUID
 
-## Маршруты
+- `/delete/{node_id}` - deletes database entry by its UUID
 
-- `/create` Данный роутер создает новую карточку
-- `/get/{node_id}` Данный роутер возвращает карточку по id
-- `/get` Данный роутер возвращает все карточки
-- `/update/{node_id}` Данный роутер обновляет карточку по id
-- `/delete/{node_id}` Данный роутер удаляет карточку по id
+- `/get/{node_id}` - returns database entry's data by its UUID
 
-## Запуск
-Для запуска проекта необходимо открыть папку проекта и в терминале написать команду:
+- `/get` - returns all the entries in the database
 
+### Launching the project (in development mode)
+1) Open project's folder through the system's terminal
+2) Install project's dependencies:
+```bash
+pip install -r requirements.txt
+```
+3) Launch the development server for the project:
 ```bash
 uvicorn src.main:app --reload
 ```
